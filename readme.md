@@ -27,7 +27,7 @@ This tool is to make manual input of recipt as easy as possible.
  - [x] Extra data on recipt
    - [x] "Person who bought"
  - [ ] Scroll down when adding new Item (Recipt can go way past the viewport)
- - [ ] Add now() to export filename
+ - [X] Add now() to export filename
 
 # Minor fixes/bugs
  - [ ] When trying to click "save" it jumps down since a new form is created. Create the form on the "next" tab?

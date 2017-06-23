@@ -131,7 +131,10 @@
 			/***************************************************************/
 			$('button.export.json').click(function(ev){
 				recipts = localStorage.getItem('recipts');
-				download('recipts.json', recipts);
+
+				var date = new Date(),
+					filename = 'recipts_' + date.getFullYear() + '_' + date.getMonth() + '_' + date.getDate() + '.json';
+				download(filename, recipts);
 			});
 
 
