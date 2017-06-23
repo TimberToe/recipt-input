@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Recipt Input</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+
+		function download(filename, text) {
+			var element = document.createElement('a');
+			element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+			element.setAttribute('download', filename);
+
+			element.style.display = 'none';
+			document.body.appendChild(element);
+
+			element.click();
+
+			document.body.removeChild(element);
+		}
+
+		function addItem(){
+			$('recipt .items').append($('template.item').html());
+		}
+
+		function updateStatistics(){
+			recipts = JSON.parse(localStorage.getItem('recipts'));
+			if(recipts){
+				$('.num-of-recipts').html(recipts.length);
+				$('.preview').html(makeReciptPreview(recipts[recipts.length-1]));
+			}
+		}
+
+		function makeReciptPreview(obj){
+			
+			function makeList(obj){
+				var result = '<ul>';
+				$.each(obj, function(k, v) {
+					result += '<li>';
+
+					if ($.isArray(v)){
+						result += 'Items: ';
+						v.forEach(function(item){
+							result += makeList(item);
+						});
+					}else{
+						result += k + ": " + v + "</li>";
+					}
+					
+					result += '</li>'
+				});
+				result += '</ul>'
+				return result;
+			}
+
+			return makeList(obj);
+		}
+
+		function addReciptToStorage(recipt_obj){
+			recipts = JSON.parse(localStorage.getItem('recipts'));
+
+			if(!recipts){
+				recipts = [];
+			}
+
+			recipts.push(recipt_obj);
+			localStorage.setItem('recipts', JSON.stringify(recipts));
+
+			updateStatistics();
+		}
+
+		function makeReciptObject(){
+			var recipt_obj={
+					'items': []
+				};
+				$recipt = $('recipt');
+
+			// Save recipt main data
+			$recipt.children('input').each(function(){
+				var $this = $(this);
+				recipt_obj[$this.attr('name')] = $this.val();
+			})
+
+			// Save items
+			$recipt.find('item').each(function(){
+				var $item = $(this),
+					item_obj = {};
+					isValid = true;
+
+				$item.find('input').each(function(){
+					var $this = $(this);
+					if($this.attr('required') && $.trim($this.val()).length == 0){
+						isValid = false;
+						return false;
+					}
+
+					item_obj[$this.attr('name')] = $this.val();
+				});
+
+				// So that we don't add empty/nonvalid items
+				if(isValid){
+					recipt_obj['items'].push(item_obj);
+				}
+			});
+
+			return recipt_obj;
+		}
+
+		function start(){
+			$('.app').append($('template.recipt').html());
+			addItem();
+			updateStatistics();
+		}
+
+		$(document).ready(function(){
+			
+			start();
+
+			/**********************************/
+			/** Saves recipt and reset forms **/
+			/**********************************/
+			$('button.save').click(function(ev){
+				console.log(makeReciptObject());
+				addReciptToStorage(makeReciptObject())
+				$('recipt .items item').remove();
+				addItem();
+			})
+
+
+			/***************************************************************/
+			/** Creates a temporary json file and opens a download prompt **/
+			/***************************************************************/
+			$('button.export.json').click(function(ev){
+				recipts = localStorage.getItem('recipts');
+				download('recipts.json', recipts);
+			});
+
+
+			/****************************************************************/
+			/** Erases all recipts from localstorage. Gives a prompt first **/
+			/****************************************************************/
+			$('button.erase').click(function(ev){
+				var r = confirm("This will clear all locally stored recipts. Only do this if you have exported the existing data.");
+				if (r == true) {
+				    localStorage.removeItem('recipts');
+				    updateStatistics();
+				}
+			});
+
+
+			/**************************************************************/
+			/** Generates new items forms when the last one is filled in **/
+			/**************************************************************/
+			$("recipt").on('focusout', '.items input', function(ev){
+				var $this = $(this),
+					$required_inputs = $(this).parents('item').find('input[required]'),
+					isValid = true;
+
+				$required_inputs.each(function (){
+					if($.trim($(this).val()).length == 0){
+						isValid = false;
+					}
+				});
+
+				if( isValid && $this.parents('item').is('item:nth-last-child(1)') ){
+					addItem();
+				}
+				if( !isValid && $this.parents('item').is('item:nth-last-child(2)') ){
+					$('recipt .items item:last').remove();
+				}
+			});
+
+		});
+
+
+
+
+	</script>
+
+	<style>
+		template{
+			display: none;
+		}
+		.statistics{
+			float: right;
+		}
+		.statistics .preview ul{
+			padding-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+
+<template class="recipt">
+	<recipt>
+		Date: <input type="date" name="date"> <br>
+		Store <input type="text" name="store"> <br>
+		Person <input type="text" name="person"> <br>
+		Items
+
+		<div class="items"></div>
+	</recipt>
+</template>
+
+<template class="item">
+	<item>
+		<ul>
+			<li>Name <input type="text" name="name" required></li>
+			<li>No. of items <input type="number" name="amount" required></li>
+			<li>Price <input type="number" name="price" required></li>
+			<li>Discount <input type="number" name="discount"></li>
+		</ul>
+	</item>
+</template>
+
+
+
+
+<div class="statistics">
+	Number of recipts: <span class="num-of-recipts"></span> <br>
+	Latest recipt: <div class="preview"></div>
+</div>
+
+<div class="app">
+
+</div>
+<div class="buttons">
+	<button class="save">Save recipt</button>
+	<button class="export json">Export as JSON</button>
+	<button class="erase">ERASE ALL RECIPTS</button>
+</div>
+
+
+
+
+</body>
+</html>
