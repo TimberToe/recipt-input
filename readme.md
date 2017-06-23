@@ -26,7 +26,7 @@ This tool is to make manual input of recipt as easy as possible.
  - [ ] Differentiate between price/weight and price/item
  - [x] Extra data on recipt
    - [x] "Person who bought"
- - [ ] Scroll down when adding new Item (Recipt can go way past the viewport)
+ - [X] Scroll down when adding new Item (Recipt can go way past the viewport)
  - [X] Add now() to export filename
 
 # Minor fixes/bugs

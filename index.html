@@ -144,8 +144,8 @@
 			$('button.erase').click(function(ev){
 				var r = confirm("This will clear all locally stored recipts. Only do this if you have exported the existing data.");
 				if (r == true) {
-				    localStorage.removeItem('recipts');
-				    updateStatistics();
+					localStorage.removeItem('recipts');
+					updateStatistics();
 				}
 			});
 
@@ -166,6 +166,9 @@
 
 				if( isValid && $this.parents('item').is('item:nth-last-child(1)') ){
 					addItem();
+					$('html, body').animate({
+						scrollTop: $("item:last").offset().top
+					}, 1000);
 				}
 				if( !isValid && $this.parents('item').is('item:nth-last-child(2)') ){
 					$('recipt .items item:last').remove();
