@@ -6,7 +6,7 @@ It would be nice to have this data and since I can't get it automatically, manua
 This tool is to make manual input of recipt as easy as possible.
 
 # Core features:
- -X Input of multiple recipts with the following data:
+ - [x] Input of multiple recipts with the following data:
    - Date
    - Store
    - Items
@@ -14,15 +14,15 @@ This tool is to make manual input of recipt as easy as possible.
    	 - No. of item
    	 - Price
    	 - Modifier (Discount) 
- -X Export to JSON / CSV
+ - [x] Export to JSON / CSV
 
 # Usability features:
- - Autocompleation of store name
+ - [ ] Autocompletion of store name
    - Auto save of new store names
- - Autocompletion of items
+ - [ ] Autocompletion of items
    - Auto save of new items
- - Tags for items
- -X See last recipt entered to the side (So that you don't forget which one you last entered)
- - Differentiate between price/weight and price/item
- - Extra data on recipt
-   -X "Person who bought"
+ - [ ] Tags for items
+ - [x] See last recipt entered to the side (So that you don't forget which one you last entered)
+ - [ ] Differentiate between price/weight and price/item
+ - [x] Extra data on recipt
+   - [x] "Person who bought"
