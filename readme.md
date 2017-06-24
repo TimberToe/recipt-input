@@ -15,6 +15,7 @@ This tool is to make manual input of recipt as easy as possible.
    	 - Price
    	 - Modifier (Discount) 
  - [x] Export to JSON / CSV
+ - [ ] Convert all "," to "." for all numbers
 
 # Usability features:
  - [ ] Autocompletion of store name
@@ -24,6 +25,7 @@ This tool is to make manual input of recipt as easy as possible.
  - [ ] Tags for items
  - [x] See last recipt entered to the side (So that you don't forget which one you last entered)
  - [ ] Differentiate between price/weight and price/item
+    - Assume that all float numbers on No.of items are price/weight
  - [x] Extra data on recipt
    - [x] "Person who bought"
  - [X] Scroll down when adding new Item (Recipt can go way past the viewport)
@@ -34,9 +36,10 @@ This tool is to make manual input of recipt as easy as possible.
  - [ ] if deleting all data in the second to last form, the last form will be deleted even if there is data in it. Only remove empty forms
 
 
+
 # Possible 2.0 version
 Why not have some statistics and charts in the app?
-
+ - [ ] Detect recipt duplicates.
  - [ ] Page where you can list, filter, edit and remove saved recipts
  - [ ] Page where you can see charts of your data
    - [ ] General statistics
@@ -52,3 +55,6 @@ Why not have some statistics and charts in the app?
      - [ ] Tags
      - [ ] Stores
      - [ ] Persons
+
+# Possible inspiration for future features
+ - Erik mentioned an app that could scan barcodes and retrieve productname, price, etc. He searched for "inköpslista" and the icon had a green android symbol. This was 5-6 years ago.
