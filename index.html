@@ -3,6 +3,11 @@
 <head>
 	<title>Recipt Input</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>
+<script src="libs/jQuery-tagEditor/jquery.caret.min.js"></script>
+<script src="libs/jQuery-tagEditor/jquery.tag-editor.min.js"></script>
+
 	<script type="text/javascript">
 
 		function download(filename, text) {
@@ -20,6 +25,7 @@
 
 		function addItem(){
 			$('recipt .items').append($('template.item').html());
+			$('.tagsinput').tagEditor();
 		}
 
 		function updateStatistics(){
@@ -46,9 +52,9 @@
 						result += k + ": " + v + "</li>";
 					}
 					
-					result += '</li>'
+					result += '</li>';
 				});
-				result += '</ul>'
+				result += '</ul>';
 				return result;
 			}
 
@@ -78,7 +84,7 @@
 			$recipt.children('input').each(function(){
 				var $this = $(this);
 				recipt_obj[$this.attr('name')] = $this.val();
-			})
+			});
 
 			// Save items
 			$recipt.find('item').each(function(){
@@ -88,7 +94,7 @@
 
 				$item.find('input').each(function(){
 					var $this = $(this);
-					if($this.attr('required') && $.trim($this.val()).length == 0){
+					if($this.attr('required') && $.trim($this.val()).length === 0){
 						isValid = false;
 						return false;
 					}
@@ -120,10 +126,10 @@
 			/**********************************/
 			$('button.save').click(function(ev){
 				console.log(makeReciptObject());
-				addReciptToStorage(makeReciptObject())
+				addReciptToStorage(makeReciptObject());
 				$('recipt .items item').remove();
 				addItem();
-			})
+			});
 
 
 			/***************************************************************/
@@ -143,7 +149,7 @@
 			/****************************************************************/
 			$('button.erase').click(function(ev){
 				var r = confirm("This will clear all locally stored recipts. Only do this if you have exported the existing data.");
-				if (r == true) {
+				if (r === true) {
 					localStorage.removeItem('recipts');
 					updateStatistics();
 				}
@@ -159,7 +165,7 @@
 					isValid = true;
 
 				$required_inputs.each(function (){
-					if($.trim($(this).val()).length == 0){
+					if($.trim($(this).val()).length === 0){
 						isValid = false;
 					}
 				});
@@ -182,6 +188,7 @@
 
 	</script>
 
+	<link rel="stylesheet" href="libs/jQuery-tagEditor/jquery.tag-editor.css">
 	<style>
 		template{
 			display: none;
@@ -192,7 +199,12 @@
 		.statistics .preview ul{
 			padding-bottom: 10px;
 		}
+
+		.tag-editor{
+	    	width: 400px;
+		}
 	</style>
+
 </head>
 <body>
 
@@ -214,6 +226,7 @@
 			<li>Price <input type="number" name="price" required></li>
 			<li>No. of items <input type="number" name="amount" required value="1"></li>
 			<li>Price modifier <input type="number" name="modifier"></li>
+			<li>Tags <input type="text" class="tagsinput" data-role="tagsinput" name="tags"></li>
 		</ul>
 	</item>
 </template>

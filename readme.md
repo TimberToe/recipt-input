@@ -22,7 +22,7 @@ This tool is to make manual input of recipt as easy as possible.
    - Auto save of new store names
  - [ ] Autocompletion of items
    - Auto save of new items
- - [ ] Tags for items
+ - [x] Tags for items
  - [x] See last recipt entered to the side (So that you don't forget which one you last entered)
  - [ ] Differentiate between price/weight and price/item
     - Assume that all float numbers on No.of items are price/weight
