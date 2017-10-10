@@ -1,0 +1,28 @@
+{
+  "name": "recipt-input",
+  "version": "0.5.0",
+  "description": "App to convert analog recipts into digital data",
+  "main": "index.html",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "rxdb": "^6.0.1",
+    "rxjs": "^5.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimberToe/recipt-input.git"
+  },
+  "keywords": [
+    "Recipt"
+  ],
+  "author": "TimberToe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TimberToe/recipt-input/issues"
+  },
+  "homepage": "https://github.com/TimberToe/recipt-input#readme"
+}
